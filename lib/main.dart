@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
@@ -13,9 +14,30 @@ class MyApp extends StatelessWidget {
   }
 }
 
+void openPage(BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(
+    builder: (BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Next page'),
+        ),
+        body: const Center(
+          child: Text(
+            'This is the next page',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      );
+    },
+  ));
+}
+
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
 
   Widget _buildRow(WordPair pair) {
     return ListTile(
@@ -43,9 +65,27 @@ class RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
-        title: Text('Startup Name Generator'),
+        title: const Text('Startup Name Generator'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Show Snackbar',
+            onPressed: () {
+              scaffoldKey.currentState.showSnackBar(snackBar);
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Next page',
+            onPressed: () {
+              openPage(context);
+            },
+          ),
+        ],
       ),
+
       body: _buildSuggestions(),
     );
   }
