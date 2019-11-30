@@ -19,12 +19,15 @@ void openPage(BuildContext context) {
     builder: (BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Next page'),
+          title: const Text(
+              'Next page',
+              style: TextStyle(fontSize: 24,fontFamily: 'IndieFlower')
+        ),
         ),
         body: const Center(
           child: Text(
             'This is the next page',
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(fontSize: 24,fontFamily: 'IndieFlower'),
           ),
         ),
       );
@@ -34,7 +37,7 @@ void openPage(BuildContext context) {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _biggerFont = const TextStyle(fontSize: 18.0, fontFamily: 'IndieFlower');
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final SnackBar snackBar = const SnackBar(content: Text('Showing Snackbar'));
